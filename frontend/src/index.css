@@ -1,0 +1,104 @@
+* {
+  box-sizing: border-box;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f4f6f8;
+  color: #1f2937;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+input,
+select,
+button {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+}
+
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1e40af;
+}
+
+.form-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.transaction-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.transaction-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #f9fafb;
+  border-left: 5px solid transparent;
+}
+
+.transaction-row.income {
+  border-left-color: #22c55e;
+}
+
+.transaction-row.expense {
+  border-left-color: #ef4444;
+}
+
+.transaction-row .title {
+  font-weight: 600;
+}
+
+.transaction-row .meta {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.transaction-row .amount {
+  font-weight: 600;
+}
+
+.transaction-row.income .amount {
+  color: #16a34a;
+}
+
+.transaction-row.expense .amount {
+  color: #dc2626;
+}
