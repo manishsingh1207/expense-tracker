@@ -10,6 +10,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+console.log("Expense Tracker API started - CI/CD v1.0.1");
+
 app.use("/api", require("./routes/transactions"));
 
 const PORT = process.env.PORT || 5000;

@@ -32,6 +32,10 @@ export default function App() {
     <div className="container">
       <h1 style={{ textAlign: "center" }}>Expense Tracker Dashboard 🚀</h1>
 
+      <p style={{ textAlign: "center", marginTop: "20px", color: "#888" }}>
+        Deployed via CI/CD – v1.0.1
+      </p>
+
       {/* Loading State */}
       {loading && <p>Loading data...</p>}
 
