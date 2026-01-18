@@ -50,8 +50,9 @@ jobs:
             pwd
             ls -la
 
-            echo "Pull latest code"
-            git pull origin main
+            echo "Reset server to match GitHub main"
+            git fetch origin
+            git reset --hard origin/main
 
             echo "Deploy backend"
             cd backend
