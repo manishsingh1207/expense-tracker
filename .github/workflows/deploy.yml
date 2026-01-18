@@ -14,23 +14,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Setup Node.js (LTS ONLY)
+      # 2. Setup Node.js (LTS)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      # 3. Install backend dependencies (CI)
+      # 3. Install backend dependencies (CI check)
       - name: Install backend dependencies
         run: |
           cd backend
-          npm install
+          npm ci
 
-      # 4. Build frontend (CI)
+      # 4. Build frontend (CI check)
       - name: Build frontend
         run: |
           cd frontend
-          npm install
+          npm ci
           npm run build
 
       # 5. Deploy to server (CD)
@@ -41,13 +41,26 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            set -e
+
+            echo "Navigating to app directory"
             cd /var/www/html/expense-tracker
+
+            echo "Confirm location"
+            pwd
+            ls -la
+
+            echo "Pull latest code"
             git pull origin main
 
+            echo "Deploy backend"
             cd backend
-            npm install
+            npm install --production
             pm2 restart expense-backend || pm2 start server.js --name expense-backend
 
+            echo "Deploy frontend"
             cd ../frontend
             npm install
             npm run build
+
+            echo "Deployment completed successfully"
