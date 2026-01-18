@@ -1,0 +1,53 @@
+name: CI/CD Pipeline - MERN Expense Tracker
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      # 3. Install backend dependencies
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm install
+
+      # 4. Install frontend dependencies & build
+      - name: Build frontend
+        run: |
+          cd frontend
+          npm install
+          npm run build
+
+      # 5. Deploy to server via SSH
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd expense-tracker
+            git pull origin main
+
+            cd backend
+            npm install
+            pm2 restart expense-backend || pm2 start server.js --name expense-backend
+
+            cd ../frontend
+            npm install
+            npm run build
