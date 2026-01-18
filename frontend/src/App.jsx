@@ -30,7 +30,7 @@ export default function App() {
 
   return (
     <div className="container">
-      <h1 style={{ textAlign: "center" }}>Expense Tracker Dashboard</h1>
+      <h1 style={{ textAlign: "center" }}>🚀 Expense Tracker Dashboard 🚀</h1>
 
       {/* Loading State */}
       {loading && <p>Loading data...</p>}

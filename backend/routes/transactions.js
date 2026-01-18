@@ -4,7 +4,7 @@ const Transaction = require("../models/Transaction");
 const router = express.Router();
 
 // Get all transactions (with optional date filter)
-router.get("/", async (req, res) => {
+router.get("/transactions", async (req, res) => {
   const { startDate, endDate } = req.query;
   let filter = {};
 
@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
 });
 
 // Add transaction
-router.post("/", async (req, res) => {
+router.post("/transactions", async (req, res) => {
   const transaction = new Transaction(req.body);
   const saved = await transaction.save();
   res.status(201).json(saved);
