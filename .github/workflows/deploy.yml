@@ -14,26 +14,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Setup Node.js
+      # 2. Setup Node.js (LTS ONLY)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 18
 
-      # 3. Install backend dependencies
+      # 3. Install backend dependencies (CI)
       - name: Install backend dependencies
         run: |
           cd backend
           npm install
 
-      # 4. Install frontend dependencies & build
+      # 4. Build frontend (CI)
       - name: Build frontend
         run: |
           cd frontend
           npm install
           npm run build
 
-      # 5. Deploy to server via SSH
+      # 5. Deploy to server (CD)
       - name: Deploy to Server
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -41,7 +41,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd expense-tracker
+            cd /var/www/html/expense-tracker
             git pull origin main
 
             cd backend
